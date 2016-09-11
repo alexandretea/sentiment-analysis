@@ -1,0 +1,10 @@
+1 I love this car.
+1 This view is amazing.
+1 I feel great this morning.
+1 I am so excited about the concert.
+1 He is my best friend.
+0 I do not like this car.
+0 This view is horrible.
+0 I feel tired this morning.
+0 I am not looking forward to the concert.
+0 He is my enemy.

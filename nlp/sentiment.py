@@ -4,9 +4,10 @@
 # File:     /Users/alexandretea/Work/sentiment-analysis/nlp/SentimentAnalyzer.py
 # Purpose:  Module containing classes to classify a sentence by sentiment
 # Created:  2016-09-11 18:25:44
-# Modified: 2016-09-11 23:56:35
+# Modified: 2016-09-12 12:18:39
 
 import nlp.extractors as extractors
+import sys
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.classify import apply_features
@@ -32,6 +33,7 @@ class Classifier:
         self.training_dataset = None
         self.classifier = None
         self.valid_score = valid_score
+        self.classifier = None
 
     @staticmethod
     def tokenize(sentence):
@@ -47,6 +49,7 @@ class Classifier:
         sentiment = raw_data[1]
         features = Classifier.tokenize(raw_data[0])
         self.word_features += nltk.FreqDist(features)
+
         if self.training_dataset is None:
             self.training_dataset = apply_features(self.extract_features,
                                                    [(features, sentiment)])
@@ -75,6 +78,7 @@ class Classifier:
 class Analyzer:
 
     def __init__(self, training_datasets, extractor=TrainingDataExtractor()):
+        sys.setrecursionlimit(50000)
         self.classifier = Classifier(extractor)
         for dataset in training_datasets:
             self.classifier.digest_training_file(dataset)
@@ -82,7 +86,7 @@ class Analyzer:
 
     def run_cli(self):
         while True:
-            sentence = input("zobb: ")
+            sentence = input("Sentence: ")
             if len(sentence) == 0:
                 break
             sentiment = self.classifier.classify(sentence)
